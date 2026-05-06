@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>✨ Crystal Tic-Tac-Toe | Smooth & Stylish</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+  <div class="scoreboard">
+    <div class="score-item">
+      <div class="score-label">❌ PLAYER X</div>
+      <div class="score-value x-score">{{ scores.X }}</div>
+    </div>
+    <div class="score-item">
+      <div class="score-label">✨ DRAW</div>
+      <div class="score-value draw-score">{{ scores.draw }}</div>
+    </div>
+    <div class="score-item">
+      <div class="score-label">⭕ PLAYER O</div>
+      <div class="score-value o-score">{{ scores.O }}</div>
+    </div>
+  </div>
+
+  <div class="mode-toggle">
+    <div class="mode-btn" :class="{ active: gameMode === 'single' }" @click="setMode('single')">🎮 SINGLE (vs AI)</div>
+    <div class="mode-btn" :class="{ active: gameMode === 'double' }" @click="setMode('double')">👥 TWO PLAYER</div>
+  </div>
+
+  <div class="turn-indicator">
+    {{ turnMessage }}
+  </div>
+
+  <div class="board">
+    <div v-for="(cell, idx) in grid" :key="idx" 
+         class="cell" 
+         :class="{ 'X': cell.figure === 1, 'O': cell.figure === 0 }" 
+         @click="makeMove(idx)">
+      <svg v-if="cell.figure === 1" width="55%" height="55%" viewBox="0 0 100 100" style="display: block;">
+        <line x1="20" y1="20" x2="80" y2="80" stroke="#ff6b4a" stroke-width="12" stroke-linecap="round" stroke-dasharray="0 0">
+          <animate attributeName="stroke-dasharray" from="0 120" to="120 0" dur="0.35s" fill="freeze" />
+        </line>
+        <line x1="80" y1="20" x2="20" y2="80" stroke="#ff6b4a" stroke-width="12" stroke-linecap="round" stroke-dasharray="0 0">
+          <animate attributeName="stroke-dasharray" from="0 120" to="120 0" dur="0.35s" fill="freeze" />
+        </line>
+      </svg>
+      <svg v-if="cell.figure === 0" width="55%" height="55%" viewBox="0 0 100 100" style="display: block;">
+        <circle cx="50" cy="50" r="34" fill="none" stroke="#4d9eff" stroke-width="12" stroke-linecap="round" stroke-dasharray="0 240">
+          <animate attributeName="stroke-dasharray" from="0 240" to="240 0" dur="0.35s" fill="freeze" />
+        </circle>
+      </svg>
+    </div>
+  </div>
+
+  <button class="reset-btn" @click="resetGame">
+    <span>🔄</span> NEW GAME
+  </button>
+
+  <div v-if="thinking" class="thinking"> AI calculating move ...</div>
+
+  <div v-if="showPopup" class="popup" @click.self="closePopup">
+    <div class="popup-content">
+      <h2>
+        <span v-if="winner === 'X'">❌</span>
+        <span v-else-if="winner === 'O'">⭕</span>
+        <span v-else>🤝</span>
+        {{ popupTitle }}
+      </h2>
+      <p>{{ popupMessage }}</p>
+      <button @click="playAgain">⚡ PLAY AGAIN</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
