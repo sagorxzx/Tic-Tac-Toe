@@ -1,0 +1,312 @@
+* {
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(145deg, #1a1f3a 0%, #2b1e4a 100%);
+  font-family: 'Segoe UI', 'Poppins', 'Montserrat', system-ui, -apple-system, 'Inter', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  touch-action: manipulation;
+  padding: 16px;
+}
+
+#app {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+/* Glassmorphic scoreboard */
+.scoreboard {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(18px);
+  border-radius: 48px;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  color: white;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+}
+
+.score-item {
+  text-align: center;
+  flex: 1;
+  transition: transform 0.2s;
+}
+
+.score-item:hover {
+  transform: translateY(-2px);
+}
+
+.score-label {
+  font-size: 13px;
+  letter-spacing: 1px;
+  opacity: 0.85;
+  margin-bottom: 4px;
+}
+
+.score-value {
+  font-size: 38px;
+  font-weight: 800;
+  line-height: 1;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.x-score {
+  color: #ff9f4a;
+  text-shadow: 0 0 5px rgba(255, 159, 74, 0.4);
+}
+
+.o-score {
+  color: #6bc5ff;
+  text-shadow: 0 0 5px rgba(107, 197, 255, 0.4);
+}
+
+.draw-score {
+  color: #cdb4ff;
+}
+
+/* Mode Toggle - premium style */
+.mode-toggle {
+  background: rgba(25, 25, 45, 0.6);
+  backdrop-filter: blur(12px);
+  border-radius: 80px;
+  padding: 6px;
+  display: flex;
+  margin-bottom: 24px;
+  gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.mode-btn {
+  flex: 1;
+  text-align: center;
+  padding: 12px 8px;
+  border-radius: 60px;
+  font-weight: 700;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.7);
+  transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  background: transparent;
+}
+
+.mode-btn.active {
+  background: linear-gradient(115deg, #ffe6b0, #ffb47b);
+  color: #2a1b38;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+  transform: scale(1.01);
+}
+
+/* Turn indicator - elegant */
+.turn-indicator {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border-radius: 60px;
+  padding: 12px 18px;
+  text-align: center;
+  margin-bottom: 28px;
+  color: white;
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 0.3px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.2s;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* BOARD - smooth, modern */
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  background: rgba(20, 18, 40, 0.4);
+  backdrop-filter: blur(8px);
+  border-radius: 44px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.2s;
+}
+
+/* enhanced cell with floating effect */
+.cell {
+  aspect-ratio: 1;
+  background: linear-gradient(145deg, #ffffff, #f8f3ff);
+  border-radius: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+  box-shadow: 0 12px 18px -6px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  transform: translateY(0);
+}
+
+.cell:active {
+  transform: translateY(4px);
+  box-shadow: 0 6px 10px -4px rgba(0, 0, 0, 0.3);
+}
+
+/* X mark — elegant sharp & glowing */
+.cell.X svg {
+  filter: drop-shadow(0 4px 6px rgba(231, 76, 60, 0.4));
+  transition: transform 0.2s ease;
+}
+
+.cell.X:hover svg {
+  transform: scale(1.02);
+}
+
+/* O mark — soft & fluid */
+.cell.O svg {
+  filter: drop-shadow(0 4px 7px rgba(52, 152, 219, 0.45));
+  transition: transform 0.2s ease;
+}
+
+.cell.O:hover svg {
+  transform: scale(1.02);
+}
+
+/* Reset button premium */
+.reset-btn {
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: white;
+  padding: 15px 20px;
+  border-radius: 60px;
+  font-size: 17px;
+  font-weight: 700;
+  margin-top: 28px;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.reset-btn:active {
+  transform: scale(0.97);
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Thinking indicator with pulse */
+.thinking {
+  text-align: center;
+  margin-top: 18px;
+  color: #ffecb3;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.3);
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 6px 18px;
+  border-radius: 40px;
+  backdrop-filter: blur(5px);
+}
+
+.thinking::before {
+  content: "⚡";
+  animation: pulse 0.9s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.4; transform: scale(0.9);}
+  100% { opacity: 1; transform: scale(1.2);}
+}
+
+/* Popup - modern & glass */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 12, 35, 0.75);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; backdrop-filter: blur(0px);}
+  to { opacity: 1; backdrop-filter: blur(10px);}
+}
+
+.popup-content {
+  background: linear-gradient(135deg, rgba(255, 245, 220, 0.95), rgba(255, 215, 170, 0.98));
+  border-radius: 56px;
+  padding: 32px 24px;
+  text-align: center;
+  color: #3a2c2f;
+  width: 80%;
+  max-width: 300px;
+  box-shadow: 0 30px 40px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 200, 0.9);
+  transform: scale(1);
+  transition: 0.2s;
+}
+
+.popup-content h2 {
+  font-size: 44px;
+  margin: 0 0 12px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.popup-content button {
+  background: #242038;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 50px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  margin-top: 18px;
+  transition: all 0.2s;
+}
+
+.popup-content button:active {
+  transform: scale(0.96);
+}
+
+/* Hover effects for desktop & smooth */
+@media (hover: hover) {
+  .cell:hover {
+    transform: translateY(-3px);
+    background: linear-gradient(145deg, #ffffff, #ffe9f0);
+    box-shadow: 0 20px 25px -12px rgba(0, 0, 0, 0.3);
+  }
+  .reset-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+  }
+}
