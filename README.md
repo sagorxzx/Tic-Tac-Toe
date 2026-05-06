@@ -25,4 +25,4 @@ A beautifully designed, glass-morphic Tic-Tac-Toe game with smooth animations an
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/crystal-tic-tac-toe.git
+git clone https://github.com/sagorxzx/Tic-Tac-Toe.git
